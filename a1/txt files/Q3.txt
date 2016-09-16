@@ -1,0 +1,1 @@
+01 12 12 01. Any number that is symmetric around its middle (i.e. has the same order of the same bytes whether you read it right-to-left or left-to-right) will have the same value in both big- and little-endian representation.

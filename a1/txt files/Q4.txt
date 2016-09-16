@@ -1,0 +1,11 @@
+The two computers probably use different endian formats. To solve the problem, you should switch the endianness that your Intel processor uses, which is little-endian, to big-endian.
+
+Coordinates from your processor: 
+521,829 in little-endian hex = 65F60700
+-2,207,359 in little-endian hex = -7FAE2100
+
+Coordinates used for the NASA computer:
+521,829 in big-endian hex = 0007F665
+-2,207,359 in big-endian hex = -0021AE7F
+
+You should use the second set of coordinates to search for the pictures you want.
