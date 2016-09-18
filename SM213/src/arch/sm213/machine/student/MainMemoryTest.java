@@ -49,8 +49,8 @@ public class MainMemoryTest {
 	@Test
 	public void testByteToInt(){
 		assertEquals(test.bytesToInteger(byte00, byte00, byte00, byte00), 0);
-		assertEquals(test.bytesToInteger(byte7F, byteFF, byteFF, byteFF), 2147483647);
-		assertEquals(test.bytesToInteger(byte80, byte00, byte00, byte00), -2147483648);
+		assertEquals(test.bytesToInteger(byte7F, byteFF, byteFF, byteFF), Integer.MAX_VALUE);
+		assertEquals(test.bytesToInteger(byte80, byte00, byte00, byte00), Integer.MIN_VALUE);
 		assertEquals(test.bytesToInteger(byte01, byteAB, byteAB, byte01), 28027649);
 		assertEquals(test.bytesToInteger(byte80, byteBA, byteBA, byte80), -2135246208);
 		assertEquals(test.bytesToInteger(byteFF, byteFF, byteFF, byteFF), -1);
