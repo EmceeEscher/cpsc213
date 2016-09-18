@@ -57,9 +57,21 @@ public class MainMemoryTest {
 		assertEquals(test.bytesToInteger(byte00, byte00, byte00, byte01), 1);
 	}
 	
+	/**
+	 * The next block tests the get and set methods.
+	 * Tests:
+	 * - setting values out-of-bounds (both below and above) and 
+	 *   looks for an InvalidAddressException. Tests for both partially
+	 *   out-of-bounds and full out-of-bounds
+	 * - tries setting arrays of differing lengths at the beginning,
+	 *   middle, and end of the memory, and ensuring that the arrays
+	 *   retrieved by the get method are the same
+	 * - tries to get an array of length 0, expects an empty array of length 0
+	 */
 	@Test
 	public void testGetSet(){
 		byte[] test3 = {byte00, byte7F, byteFF};
+		byte[] test5 = {byte00, byte7F, byteFF, byteAB, byteBA};
 		try{
 			test.set(100, test3);
 			assertTrue(false);
@@ -73,12 +85,31 @@ public class MainMemoryTest {
 			assertTrue(true);
 		}
 		try{
-			test.set(0, test3);
+			test.set(-7, test3);
+			assertTrue(false);
+		}catch(InvalidAddressException e){
 			assertTrue(true);
-			byte[] result = test.get(0, 3);
+		}
+		try{
+			test.set(96, test5);
+			assertTrue(false);
+		}catch(InvalidAddressException e){
+			assertTrue(true);
+		}
+		try{
+			test.set(0, test3);
 			assertArrayEquals(test3, test.get(0, 3));
+			test.set(95, test5);
+			assertArrayEquals(test3, test.get(95, 3));
+			assertArrayEquals(test5, test.get(95, 5));
+			test.set(63, test3);
+			assertArrayEquals(test3, test.get(63, 3));
+			test.set(64, test5);
+			assertArrayEquals(test5, test.get(64, 5));
+			assertArrayEquals(new byte[0], test.get(7, 0));
 		}catch(InvalidAddressException e){
 			assertTrue(false);
-		}	
+		}
+
 	}
 }
