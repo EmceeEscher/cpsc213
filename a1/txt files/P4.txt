@@ -1,12 +1,16 @@
 Test #	Memory Values			Big-Endian Result	Little-Endian Result
-1		0x01 0x02 0x03 0x04		16909060			67305985
-2		0x00 0x00 0x00 0x00		0					0
-3		0x7F 0xFF 0xFF 0xFF		2130640639			-16842881
-4		0xFF 0xFF 0xFF 0x7F		-16842881			2130640639
-5		0x80 0x00 0x00 0x00		-2147483648			-128
-
+1		0x00 0x00 0x00 0x00		0					0
+2		0x7F 0xFF 0xFF 0xFF	    2147483647			-129
+3		0x80 0x00 0x00 0x00 	-2147483648			128
+4		0xFF 0xFF 0xFF 0x7F		-129				2147483647
+5		0x00 0x00 0x00 0x80 	128					-2147483648
+6		0x01 0xAB 0xAB 0x01		28027649			28027649
+7		0x80 0xBA 0xBA 0x80		-2135246208			-2135246208
 
 Notes:
-Test #3 is highest possible positive number (for big-endian)
-Test #4 is highest possible positive number (for little-endian)
-Test #5 is lowest possible negative number (for big-endian) ?????
+Test #2 is the highest possible 4-byte positive number in big-Endian format
+Test #3 is the lowest possible 4-byte negative number in big-Endian format
+Test #4 is the highest possible 4-byte positive number in little-Endian format
+Test #5 is the lowest possible 4-byte negative number in little-Endian format
+Tests #2-5 also demonstrate that the big-Endian and little-Endian values correctly switch when the ordering of the bytes is reversed
+Tests #6-7 demonstrate that the method correctly produces identical values for 4-byte sequence (both positive and negative) that are mirrored about the middle
