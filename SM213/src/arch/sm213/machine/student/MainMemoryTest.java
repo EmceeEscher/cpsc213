@@ -112,6 +112,16 @@ public class MainMemoryTest {
 		}
 	}
 	
+	/**
+	 * This next test set tests the integer to bytes conversion.
+	 * The test suite is the same as for the byte to integer conversion.
+	 * Including:
+	 * - 0
+	 * - Integer.MAX_VALUE and Integer.MIN_VALUE (boundary conditions)
+	 * - 1 and -1
+	 * - arbitrary positive and negative values
+	 */
+	
 	@Test
 	public void testIntToBytes(){
 		byte[] test0 = {byte00, byte00, byte00, byte00};
@@ -126,11 +136,6 @@ public class MainMemoryTest {
 		assertArrayEquals(testPosMax, test.integerToBytes(Integer.MAX_VALUE));
 		assertArrayEquals(testNegMin, test.integerToBytes(Integer.MIN_VALUE));
 		assertArrayEquals(test1, test.integerToBytes(1));
-		byte[] result = test.integerToBytes(-2135246208);
-		for(int i = 0; i < 4; i++){
-			System.out.print(""+result[i]);
-		}
-		System.out.println();
 		assertArrayEquals(testMinus1, test.integerToBytes(-1));
 		assertArrayEquals(testPosValue, test.integerToBytes(28027649));
 		assertArrayEquals(testNegValue, test.integerToBytes(-2135246208));
