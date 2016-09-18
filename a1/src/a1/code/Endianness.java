@@ -6,39 +6,19 @@ import java.nio.ByteOrder;
 public class Endianness {
 
 	public static int bigEndianValue(Byte[] mem) {
-		/*
-		 * int byte0 = mem[0].intValue() * 0x01000000; int byte1 =
-		 * mem[1].intValue() * 0x00010000; int byte2 = mem[2].intValue() *
-		 * 0x00000100; int byte3 = mem[3].intValue() * 0x00000001; return
-		 * byte0+byte1+byte2+byte3;
-		 */
-		byte[] memPrimitive = new byte[4];
-		for (int i = 0; i < memPrimitive.length; i++) {
-			memPrimitive[i] = mem[i];
-		}
-		ByteBuffer buf = ByteBuffer.wrap(memPrimitive);
-		buf.order(ByteOrder.BIG_ENDIAN);
-		int result = buf.getInt();
-		return result;
+		int byte0 = mem[0] << 6*4;
+		int byte1 = (mem[1] & 0xFF) << 4*4;
+		int byte2 = (mem[2] & 0xFF) << 2*4;
+		int byte3 = (mem[3] & 0xFF);
+		return byte0+byte1+byte2+byte3;
 	}
 
 	public static int littleEndianValue(Byte[] mem) {
-		// String byte0str = mem[0].toString();
-		// int byte0 = Integer.parseInt(byte0str, 16);
-		// byte0 = mem[0].intValue() * 0x00000001;
-		/*
-		 * int byte1 = mem[1].intValue() * 0x00000100; int byte2 =
-		 * mem[2].intValue() * 0x00010000; int byte3 = mem[3].intValue() *
-		 * 0x01000000; return byte0+byte1+byte2+byte3;
-		 */
-		byte[] memPrimitive = new byte[4];
-		for (int i = 0; i < memPrimitive.length; i++) {
-			memPrimitive[i] = mem[i];
-		}
-		ByteBuffer buf = ByteBuffer.wrap(memPrimitive);
-		buf.order(ByteOrder.LITTLE_ENDIAN);
-		int result = buf.getInt();
-		return result;
+		int byte0 = (mem[0] & 0xFF);
+		int byte1 = (mem[1] & 0xFF) << 2*4;
+		int byte2 = (mem[2] & 0xFF) << 4*4;
+		int byte3 = mem[3] << 6*4;
+		return byte0+byte1+byte2+byte3;
 	}
 
 	public static void main(String[] args) {

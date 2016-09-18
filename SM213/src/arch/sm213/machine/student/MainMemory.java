@@ -27,8 +27,7 @@ public class MainMemory extends AbstractMainMemory {
    * @return true iff address is aligned to length.
    */
   @Override protected boolean isAccessAligned (int address, int length) {
-    // TODO
-    return false;
+    return (address % length == 0);
   }
   
   /**
