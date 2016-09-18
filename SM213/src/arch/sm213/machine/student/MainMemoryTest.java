@@ -126,7 +126,12 @@ public class MainMemoryTest {
 		assertArrayEquals(testPosMax, test.integerToBytes(Integer.MAX_VALUE));
 		assertArrayEquals(testNegMin, test.integerToBytes(Integer.MIN_VALUE));
 		assertArrayEquals(test1, test.integerToBytes(1));
-		//assertArrayEquals(testMinus1, test.integerToBytes(-1));
+		byte[] result = test.integerToBytes(-2135246208);
+		for(int i = 0; i < 4; i++){
+			System.out.print(""+result[i]);
+		}
+		System.out.println();
+		assertArrayEquals(testMinus1, test.integerToBytes(-1));
 		assertArrayEquals(testPosValue, test.integerToBytes(28027649));
 		assertArrayEquals(testNegValue, test.integerToBytes(-2135246208));
 	}
