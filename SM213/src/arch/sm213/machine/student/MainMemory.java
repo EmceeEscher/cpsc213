@@ -66,8 +66,16 @@ public class MainMemory extends AbstractMainMemory {
    * @return an array of byte where [0] is value of low-address byte of the number etc.
    */
   @Override public byte[] integerToBytes (int i) {
-    // TODO
-    return null;
+    byte[] endian = new byte[4];
+	int byte3Int = i % 0x0100;
+    endian[3] = (byte) byte3Int;
+    int byte2Int = (i / 0x0100) % 0x0100;
+    endian[2] = (byte) byte2Int;
+    int byte1Int = (i / 0x010000) % 0x0100; 
+    endian[1] = (byte) byte1Int;
+    int byte0Int = (i / 0x01000000) % 0x0100;
+    endian[0] = (byte) byte0Int;
+    return endian;
   }
   
   /**

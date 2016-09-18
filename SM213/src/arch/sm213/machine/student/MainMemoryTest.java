@@ -110,6 +110,24 @@ public class MainMemoryTest {
 		}catch(InvalidAddressException e){
 			assertTrue(false);
 		}
-
+	}
+	
+	@Test
+	public void testIntToBytes(){
+		byte[] test0 = {byte00, byte00, byte00, byte00};
+		byte[] testPosMax = {byte7F, byteFF, byteFF, byteFF};
+		byte[] testNegMin = {byte80, byte00, byte00, byte00};
+		byte[] test1 = {byte00, byte00, byte00, byte01};
+		byte[] testMinus1 = {byteFF, byteFF, byteFF, byteFF};
+		byte[] testPosValue = {byte01, byteAB, byteAB, byte01};
+		byte[] testNegValue = {byte80, byteBA, byteBA, byte80};
+		
+		assertArrayEquals(test0, test.integerToBytes(0));
+		assertArrayEquals(testPosMax, test.integerToBytes(Integer.MAX_VALUE));
+		assertArrayEquals(testNegMin, test.integerToBytes(Integer.MIN_VALUE));
+		assertArrayEquals(test1, test.integerToBytes(1));
+		//assertArrayEquals(testMinus1, test.integerToBytes(-1));
+		assertArrayEquals(testPosValue, test.integerToBytes(28027649));
+		assertArrayEquals(testNegValue, test.integerToBytes(-2135246208));
 	}
 }
