@@ -103,35 +103,43 @@ public class CPU extends AbstractSM213CPU {
       case 0x6: // ALU ................... 6-sd
 	switch (insOp0.get()) {
 	  case 0x0: // mov rs, rd ........ 60sd
-        reg.set(insOp2.get(), insOp1.get());
+        reg.set(insOp2.get(), reg.get(insOp1.get()));
 	    break;
 	  case 0x1: // add rs, rd ........ 61sd
-        reg.set(insOp2.get(), insOp1.get()+insOp2.get());
+        reg.set(insOp2.get(), reg.get(insOp1.get())+reg.get(insOp2.get()));
 	    break;
 	  case 0x2: // and rs, rd ........ 62sd
-        reg.set(insOp2.get(), insOp1.get()&insOp2.get());
+        reg.set(insOp2.get(), reg.get(insOp1.get())&reg.get(insOp2.get()));
 	    break;
 	  case 0x3: // inc rr ............ 63-r
-        reg.set(insOp2.get(), insOp2.get()+1);
+        reg.set(insOp2.get(), reg.get(insOp2.get())+1);
 	    break;
 	  case 0x4: // inca rr ........... 64-r
-        reg.set(insOp2.get(), insOp2.get()+4);
+        reg.set(insOp2.get(), reg.get(insOp2.get())+4);
 	    break;
 	  case 0x5: // dec rr ............ 65-r
-        reg.set(insOp2.get(), insOp2.get()-1);
+        reg.set(insOp2.get(), reg.get(insOp2.get())-1);
 	    break;
 	  case 0x6: // deca rr ........... 66-r
-        reg.set(insOp2.get(), insOp2.get()-4);
+        reg.set(insOp2.get(), reg.get(insOp2.get())-4);
 	    break;
 	  case 0x7: // not ............... 67-r
-        // TODO
+        reg.set(insOp2.get(), ~reg.get(insOp2.get()));
 	    break;
 	  default:
 	    throw new InvalidInstructionException();
 	}
 	break;
       case 0x7: // sh? $i,rd ............. 7dii
-        // TODO
+    	int shiftValue = insOpImm.get();
+    	int value7 = reg.get(insOp0.get());
+    	if(shiftValue >= 0){
+    		value7 = value7 << shiftValue;
+    	}else{
+    		shiftValue = ~shiftValue+1;//two's complement
+    		value7 = value7 >> shiftValue;
+    	}
+        reg.set(insOp0.get(), value7);
         break;
       case 0xf: // halt or nop ............. f?--
 	if (insOp0.get() == 0)
